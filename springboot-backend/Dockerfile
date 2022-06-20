@@ -1,0 +1,11 @@
+FROM openjdk:8 as build
+COPY src /home/app/src
+COPY pom.xml /home/app
+WORKDIR "/home/app"
+CMD ["./mvnw clean install"]
+
+FROM openjdk:8
+ENV APP_HOME /usr/src/app
+COPY target/springboot-backend-0.0.1-SNAPSHOT.jar $APP_HOME/app.jar
+WORKDIR $APP_HOME
+ENTRYPOINT ["java" , "-jar" , "app.jar"]
