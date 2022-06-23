@@ -20,7 +20,7 @@ import net.javaguides.springboot.exception.ResourceNotFoundException;
 import net.javaguides.springboot.model.Employee;
 import net.javaguides.springboot.repository.EmployeeRepository;
 
-@CrossOrigin(origins = "https://backend-nueda72-git-8dfoodh-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com")
+@CrossOrigin(origins = "http://backend-nueda72-git-8dfoodh-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com")
 @RestController
 @RequestMapping("/api/v1/")
 public class EmployeeController {
