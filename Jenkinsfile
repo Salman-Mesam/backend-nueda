@@ -1,21 +1,39 @@
-pipeline {
-    agent any
+#! /usr/bin/env groovy
 
-    stages {
-        stage('build') {
-            steps {
-                sh 'python --version'
-            }
-        }
-        stage('test') {
-            steps {
-                echo 'tested!.'
-            }
-        }
-        stage('deploy') {
-            steps {
-                echo 'deployed!'
-            }
-        }
+pipeline {
+
+  agent {
+    label 'maven'
+  }
+
+  stages {
+    stage('Build') {
+      steps {
+        echo 'Building..'
+        
+        // Add steps here
+      }
     }
+    stage('Create Container Image') {
+      steps {
+        echo 'Create Container Image..'
+        
+        script {
+
+          // Add steps here
+
+        }
+      }
+    }
+    stage('Deploy') {
+      steps {
+        echo 'Deploying....'
+        script {
+
+          // Add steps here
+
+        }
+      }
+    }
+  }
 }
