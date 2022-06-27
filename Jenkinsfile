@@ -23,7 +23,7 @@ pipeline {
         sh "oc delete all --selector app=${projectName} || echo 'Unable to delete all previous openshift resources'"
         sh "oc new-app ${dockerImageTag} -l version=${version}"
         sh "oc expose dc salman-service --port=8080"
-        sh "oc expose svc salman-service"
+        sh "oc adm expose svc salman-service"
       }
     }
   }
