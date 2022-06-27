@@ -9,7 +9,7 @@ pipeline {
 
     stage('Build Container') {
       steps {
-        DIR("springboot-backend"){
+        dir("springboot-backend"){
            sh "docker build -t ${dockerImageTag} ."
         }
        
