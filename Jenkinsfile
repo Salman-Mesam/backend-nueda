@@ -1,33 +1,25 @@
-pipeline {
+def projectName = '9dfoodh-dev'
+def version = "0.0.${currentBuild.number}"
+def dockerImageTag = "${projectName}:${version}"
 
-  agent {
-    label 'maven'
-  }
+pipeline {
+  agent any
 
   stages {
-  
-    stage('Deploy') {
+
+    stage('Build Container') {
       steps {
-        echo 'Deploying...Salman.'
-        script {
+        sh "docker build -t ${dockerImageTag} ."
+      }
+    }
 
-          openshift.withCluster() { 
-  openshift.withProject("8dfoodh-dev") { 
-    def deployment = openshift.selector("dc", "backend-nueda1512") 
-    
-   if(!deployment.exists()){ 
-      openshift.newApp('backend-nueda1512', "--as-deployment-config").narrow('svc').expose() 
-    } 
-    
-    timeout(2) { 
-      openshift.selector("dc", "backend-nueda1512").related('pods').untilEach(1) { 
-        return (it8dfoodh-devhase == "Running") 
-      } 
-    } 
-  } 
-}
-
-        }
+    stage('Deploy Container To Openshift') {
+      steps {
+        sh "oc oc login --token=sha256~QNF-cZ7rtSzpcuRWcLaxVmuV6txVpfVQAaESEnt8Lpw --server=https://api.sandbox-m2.ll9k.p1.openshiftapps.com:6443
+        sh "oc project ${projectName} || oc new-project ${projectName}"
+        sh "oc delete all --selector app=${projectName} || echo 'Unable to delete all previous openshift resources'"
+        sh "oc new-app ${dockerImageTag} -l version=${version}"
+        sh "oc expose svc ${projectName}"
       }
     }
   }
