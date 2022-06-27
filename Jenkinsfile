@@ -1,4 +1,4 @@
-def projectName = '9dfoodh-dev'
+def projectName = '8dfoodh-dev'
 def version = "0.0.${currentBuild.number}"
 def dockerImageTag = "${projectName}:${version}"
 
