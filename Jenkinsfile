@@ -15,7 +15,7 @@ pipeline {
 
     stage('Deploy Container To Openshift') {
       steps {
-        sh "oc oc login --token=sha256~QNF-cZ7rtSzpcuRWcLaxVmuV6txVpfVQAaESEnt8Lpw --server=https://api.sandbox-m2.ll9k.p1.openshiftapps.com:6443
+        sh "oc oc login --token=sha256~QNF-cZ7rtSzpcuRWcLaxVmuV6txVpfVQAaESEnt8Lpw --server=https://api.sandbox-m2.ll9k.p1.openshiftapps.com:6443"
         sh "oc project ${projectName} || oc new-project ${projectName}"
         sh "oc delete all --selector app=${projectName} || echo 'Unable to delete all previous openshift resources'"
         sh "oc new-app ${dockerImageTag} -l version=${version}"
