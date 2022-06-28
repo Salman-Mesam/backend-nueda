@@ -6,6 +6,7 @@ COPY src /home/app/src
 COPY pom.xml /home/app
 ENV my_env .
 WORKDIR "/home/app"
+EXPOSE 8600
 CMD ["./mvnw clean install"]
 
 ENV APP_HOME /usr/src/app
