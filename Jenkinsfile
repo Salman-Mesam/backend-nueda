@@ -18,11 +18,11 @@ pipeline {
 
     stage('Deploy Container To Openshift') {
       steps {
-        sh "oc login --token=sha256~QNF-cZ7rtSzpcuRWcLaxVmuV6txVpfVQAaESEnt8Lpw --server=https://api.sandbox-m2.ll9k.p1.openshiftapps.com:6443"
+        sh "oc login https://localhost:8443 --username admin --password admin --insecure-skip-tls-verify=true"
         sh "oc project ${projectName} || oc new-project ${projectName}"
         sh "oc delete all --selector app=${projectName} || echo 'Unable to delete all previous openshift resources'"
         sh "oc new-app ${dockerImageTag} -l version=${version}"
-        sh "oc adm expose svc salman-service"
+        sh "oc expose svc ${projectName}"
       }
     }
   }
