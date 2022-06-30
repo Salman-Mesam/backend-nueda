@@ -1,7 +1,6 @@
 FROM openjdk:8 as build
 CMD ["chmod -r 777 ."] 
 CMD ["chown -R :root ."]
-CMD ["pwd"]
 COPY src /home/app/src
 COPY pom.xml /home/app
 ENV my_env .
