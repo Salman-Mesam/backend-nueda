@@ -1,4 +1,4 @@
-# angular-springboot-crud-example
+# angular-springboot-crud-exampl
 https://www.javaguides.net/2021/08/angular-12-spring-boot-crud-example.html
 
 # angular-springboot-crud-example - complete tutorial
