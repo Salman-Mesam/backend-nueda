@@ -8,6 +8,7 @@ pipeline {
     stage('Build Image') {
       steps {
         dir("springboot-backend"){
+           sh "usermod -a -G docker jenkins"
            sh "docker build -t salman ."
         }
 
