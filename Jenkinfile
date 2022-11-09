@@ -1,4 +1,5 @@
-
+def projectName = 'dfoodh-dev'
+def version = "0.0.${currentBuild.number}"
 
 pipeline {
   agent any
@@ -11,6 +12,16 @@ pipeline {
            sh "docker build -t salman ."
         }
 
+      }
+    }
+    
+     stage('Deploy Container To Openshift') {
+      steps {
+        sh "oc login --token=sha256~Tjf96rb1ApoaHhmnrZggGSWnBeVs1vH-JNFPBYEsJZU --server=https://api.sandbox-m2.ll9k.p1.openshiftapps.com:6443"
+        sh "oc project ${projectName} || oc new-project ${projectName}"
+        sh "oc delete all --selector app=${projectName} || echo 'Unable to delete all previous openshift resources'"
+        sh "oc new-app salman -l version=${version}"
+        sh "oc expose svc ${projectName}"
       }
     }
 
